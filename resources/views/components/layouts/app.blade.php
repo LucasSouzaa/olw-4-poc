@@ -23,6 +23,13 @@
             <div class="flex flex-col md:pl-64">
                 <x-navigation/>
 
+                @if(session()->has('impersonate'))
+                <div class="flex items-center justify-center w-full gap-x-6 bg-indigo-600 px-6 py-2.5 sm:px-3.5 ">
+                    <span class="text-sm leading-6 text-white">You are impersonatine <strong>{{ auth()->user()->name }}</strong></span>
+                    <a href="{{ route('impersonate.leave') }}" class="text-sm leading-6 text-white underline"><span>Leave Impersonating</span></a>
+                </div>
+                @endif
+
                 <main class="flex-1">
                     <div class="py-6">
                         {{ $slot }}

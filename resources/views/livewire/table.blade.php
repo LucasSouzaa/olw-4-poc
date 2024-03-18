@@ -18,6 +18,12 @@
                             <span class="sr-only">Delete</span>
                         </th>
                     @endif
+
+                    @if(Gate::allows('impersonate') && $hasImpersonating)
+                        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                            <span class="sr-only">Impersonate</span>
+                        </th>
+                    @endif
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
@@ -40,6 +46,16 @@
 
                         </td>
                     @endif
+
+                    @if(Gate::allows('impersonate') && $hasImpersonating)
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
+                        <a href="{{ route('impersonate', $item->user->id) }}" >
+                            {{ __('Impersonate') }}
+                        </a>
+                    </td>
+                    @endif
+
+                    </td>
                 </tr>
             @endforeach
             </tbody>

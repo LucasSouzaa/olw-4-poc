@@ -2,8 +2,18 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+        @if(session()->has('error'))
+            <x-input-error :messages="session()->get('error')" class="mt-2" />
+        @endif
+
+        <div class="mt-4">
+            <x-input-label for="company" :value="__('Company name')" />
+            <x-text-input id="company" class="block mt-1 w-full" type="text" name="company" :value="old('company')" required autofocus autocomplete="company" />
+            <x-input-error :messages="$errors->get('company')" class="mt-2" />
+        </div>
+
         <!-- Name -->
-        <div>
+        <div class="mt-4">
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />

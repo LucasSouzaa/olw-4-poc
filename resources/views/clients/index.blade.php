@@ -12,7 +12,7 @@
                 <div class="w-full overflow-hidden md:rounded-lg">
                     <livewire:table
                         resource="Client"
-                        :eager-loading="['company']"
+                        :eager-loading="['address', 'company', 'user']"
                         :columns="[
                             ['label' => 'Client', 'column' => 'user.name'],
                             ['label' => 'Email','column' => 'user.email'],

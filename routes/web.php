@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ImpersonateController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SaleController;
 use App\Livewire\Dashboard;
@@ -33,5 +34,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('/clients', ClientController::class);
     Route::get('/sales', [SaleController::class, 'index']);
 });
+
+Route::get('/sellers', App\Livewire\Seller\Index::class)->middleware(['auth', 'verified'])->name('sellers.index');
+Route::get('/sellers/create', App\Livewire\Seller\Edit::class)->middleware(['auth', 'verified'])->name('sellers.create');
+Route::get('/sellers/{seller}/edit', App\Livewire\Seller\Edit::class)->middleware(['auth', 'verified'])->name('sellers.edit');
+
+Route::get('impersonate/{user_id}/login', [ImpersonateController::class, 'impersonate'])->middleware(['auth', 'can:impersonate'])->name('impersonate');
+Route::get('impersonate/leave', [ImpersonateController::class, 'leaveImpersonating'])->middleware(['auth', 'can:leave-impersonate'])->name('impersonate.leave');
 
 require __DIR__.'/auth.php';
